@@ -9,14 +9,14 @@ namespace DarwinianPokemon
     //enum Types { Normal, Fire, Fighting, Water, Grass, }
     class Pokemon
     {
-        public int type_1;
-        public int type_2;
-        public int hp;
-        public int attack;
-        public int defense;
-        public int special_attack;
-        public int special_defense;
-        public int speed;
+        private int type_1;
+        private int type_2;
+        private int hp;
+        private int attack;
+        private int defense;
+        private int special_attack;
+        private int special_defense;
+        private int speed;
         //private string name;
 
         public Pokemon(int type_1, int type_2, int hp, int attack, int defense, int special_attack, int special_defense, int speed)
@@ -58,6 +58,46 @@ namespace DarwinianPokemon
                 + "special defense: " + special_defense + "\n"
                 + "speed: " + speed + "\n";
             return pokemon;
+        }
+
+        public int GetHP()
+        {
+            return this.hp;
+        }
+
+        public int GetAttack()
+        {
+            return this.attack;
+        }
+
+        public int GetDefense() 
+        {
+            return this.defense;
+        }
+
+        public int GetSpecialAttack()
+        {
+            return this.special_attack;
+        }
+
+        public int GetSpecialDefense()
+        {
+            return this.special_defense;
+        }
+
+        public int GetSpeed()
+        {
+            return this.speed;
+        }
+
+        public int GetType_1()
+        {
+            return this.type_1;
+        }
+
+        public int GetType_2()
+        {
+            return this.type_2;
         }
     }
 }

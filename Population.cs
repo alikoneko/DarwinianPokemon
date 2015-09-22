@@ -34,5 +34,10 @@ namespace DarwinianPokemon
                 this.population.Add(pokemon);
             }
         }
+
+        public List<Pokemon> GetPopulation()
+        {
+            return this.population;
+        }
     }
 }

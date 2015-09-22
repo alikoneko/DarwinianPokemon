@@ -14,17 +14,17 @@ namespace DarwinianPokemon
         public Pokemon DetermineWinner(Pokemon opponent_a, Pokemon opponent_b)
         {
             Random rngesus = new Random();
-            int hp_a = opponent_a.hp;
-            int hp_b = opponent_b.hp;
+            int hp_a = opponent_a.GetHP();
+            int hp_b = opponent_b.GetHP();
             while (true)
             {
                 //Console.WriteLine(" A's HP: {0}\n B's HP: {1}", hp_a, hp_b);
-                if (opponent_a.speed > opponent_b.speed)
+                if (opponent_a.GetSpeed() > opponent_b.GetSpeed())
                 {
                     hp_b -= damage(opponent_a, opponent_b);
                     hp_a -= damage(opponent_b, opponent_a);
                 }
-                else if (opponent_a.speed < opponent_b.speed)
+                else if (opponent_a.GetSpeed() < opponent_b.GetSpeed())
                 {
                     hp_a -= damage(opponent_b, opponent_a);
                     hp_b -= damage(opponent_a, opponent_b);
@@ -57,7 +57,7 @@ namespace DarwinianPokemon
         private int damage(Pokemon pokemon, Pokemon opponent)
         {
             double damage = (2 * LEVEL + 10) / 250;
-            damage *= (pokemon.attack + pokemon.special_attack) / (pokemon.special_defense + pokemon.defense);
+            damage *= (pokemon.GetAttack() + pokemon.GetSpecialAttack()) / (pokemon.GetSpecialDefense() + pokemon.GetDefense());
             damage *= SURF;
             damage += 2;
             damage *= modifier(pokemon, opponent);
