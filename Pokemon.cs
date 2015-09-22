@@ -19,7 +19,7 @@ namespace DarwinianPokemon
         //private int speed;
         //private string name;
 
-        public Pokemon(int type_1, int hp, int attack, int defense,)
+        public Pokemon(int type_1, int hp, int attack, int defense)
         {
             this.type_1 = type_1;
             this.hp = hp;
