@@ -17,7 +17,7 @@ namespace DarwinianPokemon
             int special_attack_min, int special_attack_max, int special_defense_min, int special_defense_max, 
             int speed_min, int speed_max, int initial_population)
         {
-            Random rngesus = new Random(); //praise be to RNGesus, Random is random enough for this. A mersenne twister is just fine.
+            Random rngesus = new Random(); //praise be to RNGesus, Random is random enough for this. A mersenne twister is just fine. seed later?
             population = new List<Pokemon>();
             for (int index = 0; index < initial_population; index++)
             {
