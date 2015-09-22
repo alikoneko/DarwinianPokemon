@@ -70,7 +70,7 @@ namespace DarwinianPokemon
         private double modifier(Pokemon pokemon, Pokemon opponent)
         {
             Random rngesus = new Random();
-            if (rngesus.Next(0, 1) == 0)
+            if (rngesus.Next(0, 1) == 0) //determines critical hit!
             {
                 return rngesus.NextDouble() * (1.00f - 0.85) + 0.85;
             }

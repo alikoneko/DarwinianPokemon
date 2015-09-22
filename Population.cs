@@ -9,7 +9,6 @@ namespace DarwinianPokemon
     class Population
     {
         private List<Pokemon> population;
-
         /*
          * This generates an initial population.  
          */
@@ -24,6 +23,15 @@ namespace DarwinianPokemon
             {
                 population.Add(new Pokemon(type_1, type_2, rngesus.Next(hp_min, hp_max), rngesus.Next(attack_min, attack_max), rngesus.Next(defense_min, defense_max), 
                     rngesus.Next(special_attack_min, special_attack_max), rngesus.Next(special_defense_min, special_defense_max), rngesus.Next(speed_min, speed_max)));
+            }
+        }
+
+        public Population(List<Pokemon> population)
+        {
+            this.population = new List<Pokemon>();
+            foreach (Pokemon pokemon in population)
+            {
+                this.population.Add(pokemon);
             }
         }
     }
