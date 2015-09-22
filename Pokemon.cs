@@ -9,14 +9,14 @@ namespace DarwinianPokemon
     //enum Types { Normal, Fire, Fighting, Water, Grass, }
     class Pokemon
     {
-        public int type_1 { get; set; }
-        public int type_2 { get; set; }
-        public  int hp { get; set; }
-        public int attack { get; set; }
-        public int defense { get; set; }
-        public int special_attack { get; set; }
-        public int special_defense { get; set; }
-        public int speed { get; set; }
+        public int type_1;
+        public int type_2;
+        public int hp;
+        public int attack;
+        public int defense;
+        public int special_attack;
+        public int special_defense;
+        public int speed;
         //private string name;
 
         public Pokemon(int type_1, int type_2, int hp, int attack, int defense, int special_attack, int special_defense, int speed)

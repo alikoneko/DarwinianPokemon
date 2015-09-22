@@ -18,30 +18,35 @@ namespace DarwinianPokemon
             int hp_b = opponent_b.hp;
             while (true)
             {
+                //Console.WriteLine(" A's HP: {0}\n B's HP: {1}", hp_a, hp_b);
                 if (opponent_a.speed > opponent_b.speed)
                 {
                     hp_b -= damage(opponent_a, opponent_b);
+                    hp_a -= damage(opponent_b, opponent_a);
                 }
                 else if (opponent_a.speed < opponent_b.speed)
                 {
                     hp_a -= damage(opponent_b, opponent_a);
+                    hp_b -= damage(opponent_a, opponent_b);
                 }
                 else
                 {
                     if (rngesus.Next(0, 1) == 1)
                     {
                         hp_b -= damage(opponent_a, opponent_b);
+                        hp_a -= damage(opponent_b, opponent_a);
                     }
                     else
                     {
                         hp_a -= damage(opponent_b, opponent_a);
+                        hp_b -= damage(opponent_a, opponent_b);
                     }
                 }
-                if (hp_a == 0)
+                if (hp_a <= 0)
                 {
                     return opponent_b;
                 }
-                else if (hp_b == 0)
+                else if (hp_b <= 0)
                 {
                     return opponent_a;
                 }
