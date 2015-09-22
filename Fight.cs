@@ -13,19 +13,63 @@ namespace DarwinianPokemon
 
         public Pokemon DetermineWinner(Pokemon opponent_a, Pokemon opponent_b)
         {
+            Random rngesus = new Random();
             int hp_a = opponent_a.hp;
             int hp_b = opponent_b.hp;
-
+            while (true)
+            {
+                if (opponent_a.speed > opponent_b.speed)
+                {
+                    hp_b -= damage(opponent_a, opponent_b);
+                }
+                else if (opponent_a.speed < opponent_b.speed)
+                {
+                    hp_a -= damage(opponent_b, opponent_a);
+                }
+                else
+                {
+                    if (rngesus.Next(0, 1) == 1)
+                    {
+                        hp_b -= damage(opponent_a, opponent_b);
+                    }
+                    else
+                    {
+                        hp_a -= damage(opponent_b, opponent_a);
+                    }
+                }
+                if (hp_a == 0)
+                {
+                    return opponent_b;
+                }
+                else if (hp_b == 0)
+                {
+                    return opponent_a;
+                }
+            }
         }
 
-        private int damage(Pokemon pokemon)
+        //From bulbapedia
+        private int damage(Pokemon pokemon, Pokemon opponent)
         {
-            int damage = (2 * LEVEL + 10) / 250;
+            double damage = (2 * LEVEL + 10) / 250;
             damage *= (pokemon.attack + pokemon.special_attack) / (pokemon.special_defense + pokemon.defense);
             damage *= SURF;
             damage += 2;
-            //damage *= modifier(pokemon);
-            return damage;
+            damage *= modifier(pokemon, opponent);
+            return (int)Math.Round(damage);
+        }
+
+        //From Bulbapedia,
+        // INLCUDES CRITICAL HITS!
+        //TODO: TYPE EFFECTIVENESS
+        private double modifier(Pokemon pokemon, Pokemon opponent)
+        {
+            Random rngesus = new Random();
+            if (rngesus.Next(0, 1) == 0)
+            {
+                return rngesus.NextDouble() * (1.00f - 0.85) + 0.85;
+            }
+            return (rngesus.NextDouble() * (1.00f - 0.85) + 0.85) * 2;
         }
     }
 }
