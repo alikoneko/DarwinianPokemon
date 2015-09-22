@@ -64,7 +64,9 @@ namespace DarwinianPokemon
         public Pokemon Reroll(Pokemon pokemon)
         {
             Random rngesus = new Random();
-
+            return new Pokemon(rngesus.Next(0, 17), rngesus.Next(0, 17), rngesus.Next(pokemon.hp - 30, pokemon.hp + 30), rngesus.Next(pokemon.attack - 30, pokemon.attack + 30),
+                rngesus.Next(pokemon.defense - 30, pokemon.defense + 30), rngesus.Next(pokemon.special_attack - 30, pokemon.special_attack + 30),
+                rngesus.Next(pokemon.special_defense - 30, pokemon.special_defense + 30), rngesus.Next(pokemon.speed - 30, pokemon.speed + 30));
         }
 
         private int StatModifier(Random rngesus)
