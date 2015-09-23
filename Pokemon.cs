@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DarwinianPokemon.Attacks;
 
 namespace DarwinianPokemon
 {
@@ -17,6 +18,9 @@ namespace DarwinianPokemon
         private int special_attack;
         private int special_defense;
         private int speed;
+        private int damage = 0;
+        private Random random;
+        private List<Attack> attacks;
         //private string name;
 
         public Pokemon(int type_1, int type_2, int hp, int attack, int defense, int special_attack, int special_defense, int speed)
@@ -29,29 +33,38 @@ namespace DarwinianPokemon
             this.special_attack = special_attack;
             this.special_defense = special_defense;
             this.speed = speed;
+            this.attacks = new List<Attack> { new Surf() };
+            random = ServiceRegistry.GetInstance().GetRandom();
             //this.name = name;
         }
 
         public Pokemon(Pokemon pokemon)
         {
-            this.type_1 = pokemon.type_1;
-            this.type_2 = pokemon.type_2;
-            this.hp = pokemon.hp;
-            this.attack = pokemon.attack;
-            this.defense = pokemon.defense;
-            this.special_attack = pokemon.special_attack;
-            this.special_defense = pokemon.special_defense;
-            this.speed = pokemon.speed;
+            type_1 = pokemon.type_1;
+            type_2 = pokemon.type_2;
+            hp = pokemon.hp;
+            attack = pokemon.attack;
+            defense = pokemon.defense;
+            special_attack = pokemon.special_attack;
+            special_defense = pokemon.special_defense;
+            speed = pokemon.speed;
+            this.attacks = new List<Attack> { new Surf() };
+            random = ServiceRegistry.GetInstance().GetRandom();
             //this.name = pokemon.name;
         }
 
+        public void Damage(int damage)
+        {
+            this.damage += damage;
+        }
         public override string ToString()
         {
             string pokemon = "";
             //pokemon += name + "\n";
             pokemon += type_1 + " " + type_2 + "\n"
                 + "Stats:\n"
-                + "hp: " + hp + "\n"
+                + "max hp: " + hp + "\n"
+                + "hp: " + GetHP() + "\n"
                 + "atk: " + attack + "\n"
                 + "defense: " + defense + "\n"
                 + "special attack: " + special_attack + "\n"
@@ -60,14 +73,39 @@ namespace DarwinianPokemon
             return pokemon;
         }
 
+        public void Attack(Pokemon target)
+        {
+            target.Damage(attacks[random.Next(attacks.Count)].GetDamage(this, target));
+        }
+
+        public bool Dead()
+        {
+            return GetHP() < 0;
+        }
+
+        public int Level()
+        {
+            return 50;
+        }
+
+        public void Heal()
+        {
+            damage = 0;
+        }
+
         public int GetHP()
         {
-            return this.hp;
+            return hp - damage;
+        }
+
+        public int GetMaxHP()
+        {
+            return hp;
         }
 
         public int GetAttack()
         {
-            return this.attack;
+            return attack;
         }
 
         public int GetDefense() 

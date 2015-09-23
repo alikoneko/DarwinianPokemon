@@ -11,69 +11,80 @@ namespace DarwinianPokemon
         private const int LEVEL = 50; // pulling stat ranges from the level 50 pokedex
         private const int SURF = 90; // this is a 90 power move ALL pokemon learn one 90 power move. This was selected as a good base
 
-        public Pokemon DetermineWinner(Pokemon opponent_a, Pokemon opponent_b, Random rngesus)
+        private Pokemon opponent_a, opponent_b;
+        private Pokemon winner, loser;
+
+        private Random random;
+
+        public Fight(Pokemon opponent_a, Pokemon opponent_b)
         {
-            int hp_a = opponent_a.GetHP();
-            int hp_b = opponent_b.GetHP();
-            while (true)
+            random = ServiceRegistry.GetInstance().GetRandom();
+            this.opponent_a = opponent_a;
+            this.opponent_b = opponent_b;
+        }
+
+        public Pokemon Winner()
+        {
+            if (null == winner)
             {
-                //Console.WriteLine(" A's HP: {0}\n B's HP: {1}", hp_a, hp_b);
-                if (opponent_a.GetSpeed() > opponent_b.GetSpeed())
+                RunFight();
+            }
+            return winner;
+        }
+
+        public Pokemon Loser()
+        {
+            if (null == loser)
+            {
+                RunFight();
+            }
+            return loser;
+        }
+        private void RunFight()
+        {
+            Random rngesus = new Random();
+
+            Pokemon attacker, defender;
+
+            if (opponent_a.GetSpeed() > opponent_b.GetSpeed())
+            {
+                attacker = opponent_a;
+                defender = opponent_b;
+            }
+            else if (opponent_b.GetSpeed() > opponent_a.GetSpeed())
+            {
+                attacker = opponent_b;
+                defender = opponent_a;
+            }
+            else
+            {
+                if (rngesus.Next(0, 1) == 1)
                 {
-                    hp_b -= damage(opponent_a, opponent_b);
-                    hp_a -= damage(opponent_b, opponent_a);
-                }
-                else if (opponent_a.GetSpeed() < opponent_b.GetSpeed())
-                {
-                    hp_a -= damage(opponent_b, opponent_a);
-                    hp_b -= damage(opponent_a, opponent_b);
+                    attacker = opponent_a;
+                    defender = opponent_b;
                 }
                 else
                 {
-                    if (rngesus.Next(0, 1) == 1)
-                    {
-                        hp_b -= damage(opponent_a, opponent_b);
-                        hp_a -= damage(opponent_b, opponent_a);
-                    }
-                    else
-                    {
-                        hp_a -= damage(opponent_b, opponent_a);
-                        hp_b -= damage(opponent_a, opponent_b);
-                    }
-                }
-                if (hp_a <= 0)
-                {
-                    return opponent_b;
-                }
-                else if (hp_b <= 0)
-                {
-                    return opponent_a;
+                    attacker = opponent_b;
+                    defender = opponent_a;
                 }
             }
-        }
 
-        //From bulbapedia
-        private int damage(Pokemon pokemon, Pokemon opponent)
-        {
-            double damage = (2 * LEVEL + 10) / 250;
-            damage *= (pokemon.GetAttack() + pokemon.GetSpecialAttack()) / (pokemon.GetSpecialDefense() + pokemon.GetDefense());
-            damage *= SURF;
-            damage += 2;
-            damage *= modifier(pokemon, opponent);
-            return (int)Math.Round(damage);
-        }
-
-        //From Bulbapedia,
-        // INLCUDES CRITICAL HITS!
-        //TODO: TYPE EFFECTIVENESS
-        private double modifier(Pokemon pokemon, Pokemon opponent)
-        {
-            Random rngesus = new Random();
-            if (rngesus.Next(0, 1) == 0) //determines critical hit!
+            while (true)
             {
-                return rngesus.NextDouble() * (1.00f - 0.85) + 0.85;
+                attacker.Attack(defender);
+
+                if(defender.Dead())
+                {
+                    winner = attacker;
+                    loser = defender;
+                    return;
+                }
+
+                Pokemon temp = attacker;
+                attacker = defender;
+                defender = temp;
             }
-            return (rngesus.NextDouble() * (1.00f - 0.85) + 0.85) * 2;
         }
     }
 }
