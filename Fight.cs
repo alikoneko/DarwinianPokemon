@@ -11,9 +11,8 @@ namespace DarwinianPokemon
         private const int LEVEL = 50; // pulling stat ranges from the level 50 pokedex
         private const int SURF = 90; // this is a 90 power move ALL pokemon learn one 90 power move. This was selected as a good base
 
-        public Pokemon DetermineWinner(Pokemon opponent_a, Pokemon opponent_b)
+        public Pokemon DetermineWinner(Pokemon opponent_a, Pokemon opponent_b, Random rngesus)
         {
-            Random rngesus = new Random();
             int hp_a = opponent_a.GetHP();
             int hp_b = opponent_b.GetHP();
             while (true)

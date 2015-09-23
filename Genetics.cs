@@ -20,9 +20,8 @@ namespace DarwinianPokemon
             return new Pokemon(mother.GetType_1(), father.GetType_2(), average_hp, average_atk, average_def, average_spa, average_spdef, average_spd);
         }
 
-        public Pokemon MutateType(Pokemon pokemon)
+        public Pokemon MutateType(Pokemon pokemon, Random rngesus)
         {
-            Random rngesus = new Random();
             if (rngesus.Next(0, 1) == 0)
             {
                 return new Pokemon(rngesus.Next(0, 17), pokemon.GetType_2(), pokemon.GetHP(), pokemon.GetAttack(), pokemon.GetDefense(),
@@ -32,9 +31,8 @@ namespace DarwinianPokemon
                 pokemon.GetSpecialAttack(), pokemon.GetSpecialDefense(), pokemon.GetSpeed());
         }
 
-        public Pokemon MutateStat(Pokemon pokemon)
+        public Pokemon MutateStat(Pokemon pokemon, Random rngesus)
         {
-            Random rngesus = new Random();
             int switch_stat = rngesus.Next(0,5);
             int modifier = StatModifier(rngesus);
 
@@ -63,9 +61,8 @@ namespace DarwinianPokemon
             }
         }
 
-        public Pokemon Reroll(Pokemon pokemon)
+        public Pokemon Reroll(Pokemon pokemon, Random rngesus)
         {
-            Random rngesus = new Random();
             return new Pokemon(rngesus.Next(0, 17), rngesus.Next(0, 17), rngesus.Next(pokemon.GetHP() - 30, pokemon.GetHP() + 30), rngesus.Next(pokemon.GetAttack() - 30, pokemon.GetAttack() + 30),
                 rngesus.Next(pokemon.GetDefense() - 30, pokemon.GetDefense() + 30), rngesus.Next(pokemon.GetSpecialAttack() - 30, pokemon.GetSpecialAttack() + 30),
                 rngesus.Next(pokemon.GetSpecialDefense() - 30, pokemon.GetSpecialDefense() + 30), rngesus.Next(pokemon.GetSpeed() - 30, pokemon.GetSpeed() + 30));
