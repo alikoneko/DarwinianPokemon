@@ -40,7 +40,8 @@ namespace DarwinianPokemon
             { 
                 new Surf(),
                 new HyperVoice(),
-                new Pound()
+                new Pound(),
+                new Gust()
             };
             random = ServiceRegistry.GetInstance().GetRandom();
             //this.name = name;
