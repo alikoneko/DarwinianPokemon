@@ -39,7 +39,8 @@ namespace DarwinianPokemon
             this.attacks = new List<Attack> 
             { 
                 new Surf(),
-                new HyperVoice()
+                new HyperVoice(),
+                new Pound()
             };
             random = ServiceRegistry.GetInstance().GetRandom();
             //this.name = name;
