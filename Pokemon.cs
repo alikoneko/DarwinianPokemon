@@ -19,6 +19,8 @@ namespace DarwinianPokemon
         private int special_defense;
         private int speed;
         private int damage = 0;
+        private int age = 0;
+        private int max_age;
         private Random random;
         private List<Attack> attacks;
         //private string name;
@@ -33,6 +35,7 @@ namespace DarwinianPokemon
             this.special_attack = special_attack;
             this.special_defense = special_defense;
             this.speed = speed;
+            max_age = DetermineLifeSpan();
             this.attacks = new List<Attack> { new Surf() };
             random = ServiceRegistry.GetInstance().GetRandom();
             //this.name = name;
@@ -131,6 +134,11 @@ namespace DarwinianPokemon
 
         }
 
+        private int DetermineLifeSpan()
+        {
+            return (hp + attack + defense + special_attack + special_defense + speed) / 5;
+        }
+
         public override string ToString()
         {
             string pokemon = "";
@@ -210,6 +218,11 @@ namespace DarwinianPokemon
         public int GetType_2()
         {
             return this.type_2;
+        }
+
+        public int IncreaseAge()
+        {
+            age++;
         }
     }
 }
