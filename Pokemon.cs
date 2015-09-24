@@ -162,6 +162,11 @@ namespace DarwinianPokemon
 
         public bool Dead()
         {
+            if (age >= max_age)
+            {
+                return age >= max_age; 
+            }
+
             return GetHP() < 0;
         }
 
@@ -220,9 +225,14 @@ namespace DarwinianPokemon
             return this.type_2;
         }
 
-        public int IncreaseAge()
+        public void IncreaseAge()
         {
             age++;
+        }
+
+        public void max_heal()
+        {
+            damage = 0;
         }
     }
 }
