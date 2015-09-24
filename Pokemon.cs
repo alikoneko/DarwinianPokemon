@@ -36,7 +36,11 @@ namespace DarwinianPokemon
             this.special_defense = special_defense;
             this.speed = speed;
             max_age = DetermineLifeSpan();
-            this.attacks = new List<Attack> { new Surf() };
+            this.attacks = new List<Attack> 
+            { 
+                new Surf(),
+                new HyperVoice()
+            };
             random = ServiceRegistry.GetInstance().GetRandom();
             //this.name = name;
         }

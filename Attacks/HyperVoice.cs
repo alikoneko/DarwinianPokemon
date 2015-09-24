@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace DarwinianPokemon.Attacks
 {
-    class Surf : Attack
+    class HyperVoice : Attack
     {
-        private Random random;
-        public Surf()
+        Random random = new Random();
+
+         public HyperVoice()
         {
             random = ServiceRegistry.GetInstance().GetRandom();
         }
@@ -23,7 +24,7 @@ namespace DarwinianPokemon.Attacks
                 modifier *= 2;
             }
 
-            damage *= (attacker.GetSpecialAttack()) / (defender.GetSpecialDefense());
+            damage *= (attacker.GetAttack()) / (defender.GetDefense());
             damage *= 90;
             damage += 2;
             damage *= modifier;
