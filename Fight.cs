@@ -8,9 +8,6 @@ namespace DarwinianPokemon
 {
     class Fight
     {
-        private const int LEVEL = 50; // pulling stat ranges from the level 50 pokedex
-        private const int SURF = 90; // this is a 90 power move ALL pokemon learn one 90 power move. This was selected as a good base
-
         private Pokemon opponent_a, opponent_b;
         private Pokemon winner, loser;
 
@@ -42,7 +39,7 @@ namespace DarwinianPokemon
         }
         private void RunFight()
         {
-            Random rngesus = new Random();
+            Random random = new Random();
 
             Pokemon attacker, defender;
 
@@ -58,7 +55,7 @@ namespace DarwinianPokemon
             }
             else
             {
-                if (rngesus.Next(0, 1) == 1)
+                if (random.Next(0, 1) == 1)
                 {
                     attacker = opponent_a;
                     defender = opponent_b;

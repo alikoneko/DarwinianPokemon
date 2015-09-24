@@ -61,64 +61,62 @@ namespace DarwinianPokemon
             this.damage += damage;
         }
 
-        public Pokemon Breed(Pokemon mother, Pokemon father)
+        public Pokemon Breed(Pokemon father)
         {
-            int average_hp = (mother.GetHP() + father.GetHP()) / 2;
-            int average_atk = (mother.GetAttack() + father.GetAttack()) / 2;
-            int average_def = (mother.GetDefense() + father.GetDefense()) / 2;
-            int average_spa = (mother.GetSpecialAttack() + father.GetSpecialAttack()) / 2;
-            int average_spdef = (mother.GetSpecialDefense() + father.GetSpecialDefense()) / 2;
-            int average_spd = (mother.GetSpeed() + father.GetSpeed()) / 2;
+            int average_hp = (GetMaxHP() + father.GetHP()) / 2;
+            int average_atk = (attack + father.GetAttack()) / 2;
+            int average_def = (defense + father.GetDefense()) / 2;
+            int average_spa = (special_attack + father.GetSpecialAttack()) / 2;
+            int average_spdef = (special_defense + father.GetSpecialDefense()) / 2;
+            int average_spd = (speed + father.GetSpeed()) / 2;
 
-            return new Pokemon(mother.GetType_1(), father.GetType_2(), average_hp, average_atk, average_def, average_spa, average_spdef, average_spd);
+            return new Pokemon(type_1, father.GetType_2(), average_hp, average_atk, average_def, average_spa, average_spdef, average_spd);
         }
 
-        public Pokemon MutateType(Pokemon pokemon)
+        public Pokemon MutateType()
         {
             if (random.Next(0, 1) == 0)
             {
-                return new Pokemon(random.Next(0, 17), pokemon.GetType_2(), pokemon.GetHP(), pokemon.GetAttack(), pokemon.GetDefense(),
-                    pokemon.GetSpecialAttack(), pokemon.GetSpecialDefense(), pokemon.GetSpeed());
+                return new Pokemon(random.Next(0, 17), type_2, hp, attack, defense, special_attack, special_defense, speed);
             }
-            return new Pokemon(pokemon.GetType_1(), random.Next(0, 17), pokemon.GetHP(), pokemon.GetAttack(), pokemon.GetDefense(),
-                pokemon.GetSpecialAttack(), pokemon.GetSpecialDefense(), pokemon.GetSpeed());
+            return new Pokemon(type_1, random.Next(0, 17), hp, attack, defense, special_attack, special_defense, speed);
         }
 
-        public Pokemon MutateStat(Pokemon pokemon)
+        public Pokemon MutateStat()
         {
             int switch_stat = random.Next(0, 5);
-            int modifier = StatModifier(random);
+            int modifier = StatModifier();
 
             switch (switch_stat)
             {
                 case 0:
-                    int hp = pokemon.GetHP() + modifier;
-                    return new Pokemon(pokemon.GetType_1(), pokemon.GetType_2(), hp, pokemon.GetAttack(), pokemon.GetDefense(), pokemon.GetSpecialAttack(), pokemon.GetSpecialDefense(), pokemon.GetSpeed());
+                    int hp = this.hp + modifier;
+                    return new Pokemon(type_1, type_2, hp, this.attack, this.defense, this.special_attack, this.special_defense, this.speed);
                 case 1:
-                    int attack = pokemon.GetAttack() + modifier;
-                    return new Pokemon(pokemon.GetType_1(), pokemon.GetType_2(), pokemon.GetHP(), attack, pokemon.GetDefense(), pokemon.GetSpecialAttack(), pokemon.GetSpecialDefense(), pokemon.GetSpeed());
+                    int attack = this.attack + modifier;
+                    return new Pokemon(type_1, type_2, this.hp, attack, this.defense, this.special_attack, this.special_defense, this.speed);
                 case 2:
-                    int defense = pokemon.GetDefense() + modifier;
-                    return new Pokemon(pokemon.GetType_1(), pokemon.GetType_2(), pokemon.GetHP(), pokemon.GetAttack(), defense, pokemon.GetSpecialAttack(), pokemon.GetSpecialDefense(), pokemon.GetSpeed());
+                    int defense = this.defense + modifier;
+                    return new Pokemon(type_1, type_2, this.hp, this.attack, defense, this.special_attack, this.special_defense, this.speed);
                 case 3:
-                    int special_attack = pokemon.GetSpecialDefense() + modifier;
-                    return new Pokemon(pokemon.GetType_1(), pokemon.GetType_2(), pokemon.GetHP(), pokemon.GetAttack(), pokemon.GetDefense(), special_attack, pokemon.GetSpecialDefense(), pokemon.GetSpeed());
+                    int special_attack = this.special_defense + modifier;
+                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, special_attack, this.special_defense, this.speed);
                 case 4:
-                    int special_defense = pokemon.GetSpecialDefense() + modifier;
-                    return new Pokemon(pokemon.GetType_1(), pokemon.GetType_2(), pokemon.GetHP(), pokemon.GetAttack(), pokemon.GetDefense(), pokemon.GetSpecialAttack(), special_defense, pokemon.GetSpeed());
+                    int special_defense = this.special_defense + modifier;
+                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, this.special_attack, special_defense, this.speed);
                 case 5:
-                    int speed = pokemon.GetSpeed() + modifier;
-                    return new Pokemon(pokemon.GetType_1(), pokemon.GetType_2(), pokemon.GetHP(), pokemon.GetAttack(), pokemon.GetDefense(), pokemon.GetSpecialAttack(), pokemon.GetSpecialDefense(), speed);
+                    int speed = this.speed + modifier;
+                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, this.special_attack, this.special_defense, speed);
                 default:
-                    return new Pokemon(pokemon);
+                    return new Pokemon(this);
             }
         }
 
-        public Pokemon Reroll(Pokemon pokemon)
+        public Pokemon Reroll()
         {
-            return new Pokemon(random.Next(0, 17), random.Next(0, 17), random.Next(pokemon.GetHP() - 30, pokemon.GetHP() + 30), random.Next(pokemon.GetAttack() - 30, pokemon.GetAttack() + 30),
-                random.Next(pokemon.GetDefense() - 30, pokemon.GetDefense() + 30), random.Next(pokemon.GetSpecialAttack() - 30, pokemon.GetSpecialAttack() + 30),
-                random.Next(pokemon.GetSpecialDefense() - 30, pokemon.GetSpecialDefense() + 30), random.Next(pokemon.GetSpeed() - 30, pokemon.GetSpeed() + 30));
+            return new Pokemon(random.Next(0, 17), random.Next(0, 17), random.Next(hp - 30, hp + 30), random.Next(attack - 30, attack + 30),
+                random.Next(defense - 30, defense + 30), random.Next(special_attack - 30, special_attack + 30),
+                random.Next(special_defense - 30, special_defense + 30), random.Next(speed - 30, speed + 30));
         }
 
         private int StatModifier()
