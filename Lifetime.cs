@@ -31,10 +31,15 @@ namespace DarwinianPokemon
                 deaths++;
             }
         }
+
         public double GetKDR()
         {
             return (double) kills / (kills + deaths);
         }
 
+        public Pokemon GetPokemon()
+        {
+            return pokemon;
+        }
     }
 }
