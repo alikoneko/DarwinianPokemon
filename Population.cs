@@ -54,20 +54,6 @@ namespace DarwinianPokemon
                 population.Remove(fight.Loser());
                 int mutation = random.Next(0, 3);
                 Pokemon baby = population[random.Next(0, population.Count)].Breed(population[random.Next(0, population.Count)]);
-                switch (mutation)
-                {
-                    case 0:
-                        baby = baby.MutateStat();
-                        break;
-                    case 1:
-                        baby = baby.MutateType();
-                        break;
-                    case 2:
-                        baby = baby.Reroll();
-                        break;
-                    default:
-                        break;
-                }
                 population.Add(baby);
                 fights++;
                 breed++;

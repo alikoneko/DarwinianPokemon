@@ -79,19 +79,40 @@ namespace DarwinianPokemon
             int average_spdef = (special_defense + father.GetSpecialDefense()) / 2;
             int average_spd = (speed + father.GetSpeed()) / 2;
 
-            return new Pokemon(type_1, father.GetType_2(), average_hp, average_atk, average_def, average_spa, average_spdef, average_spd, NameGenerator.Generate(name, father.name));
+            Pokemon baby = new Pokemon(type_1, father.GetType_2(), average_hp, average_atk, average_def, average_spa, average_spdef, average_spd, NameGenerator.Generate(name, father.name));
+            int mutate = random.Next(0, 7);
+            switch (mutate)
+            {
+                case 0:
+                    baby.MutateType();
+                    break;
+                case 1:
+                    baby.MutateStat();
+                    break;
+                case 2:
+                    baby.Reroll();
+                    break;
+                default:
+                    break;
+            }
+
+            return baby;
+
         }
 
-        public Pokemon MutateType()
+        private void MutateType()
         {
             if (random.Next(0, 1) == 0)
             {
-                return new Pokemon(random.Next(0, 17), type_2, hp, attack, defense, special_attack, special_defense, speed, name);
+                type_1 = random.Next(0, 16);
             }
-            return new Pokemon(type_1, random.Next(0, 17), hp, attack, defense, special_attack, special_defense, speed, name);
+            else
+            {
+                type_2 = random.Next(0, 16);
+            }
         }
 
-        public Pokemon MutateStat()
+        private void MutateStat()
         {
             int switch_stat = random.Next(0, 5);
             int modifier = StatModifier();
@@ -99,33 +120,38 @@ namespace DarwinianPokemon
             switch (switch_stat)
             {
                 case 0:
-                    int hp = this.hp + modifier;
-                    return new Pokemon(type_1, type_2, hp, this.attack, this.defense, this.special_attack, this.special_defense, this.speed, name);
+                    hp =+ modifier;
+                    break;
                 case 1:
-                    int attack = this.attack + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, attack, this.defense, this.special_attack, this.special_defense, this.speed, name);
+                    attack =+ modifier;
+                    break;
                 case 2:
-                    int defense = this.defense + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, this.attack, defense, this.special_attack, this.special_defense, this.speed, name);
+                    defense =+ modifier;
+                    break;
                 case 3:
-                    int special_attack = this.special_defense + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, special_attack, this.special_defense, this.speed, name);
+                    special_attack =+ modifier;
+                    break;
                 case 4:
-                    int special_defense = this.special_defense + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, this.special_attack, special_defense, this.speed, name);
+                    special_defense =+ modifier;
+                    break;
                 case 5:
-                    int speed = this.speed + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, this.special_attack, this.special_defense, speed, name);
+                    speed =+ modifier;
+                    break;
                 default:
-                    return new Pokemon(this);
+                    break;
             }
         }
 
-        public Pokemon Reroll()
+        private void Reroll()
         {
-            return new Pokemon(random.Next(0, 17), random.Next(0, 17), random.Next(hp - 30, hp + 30), random.Next(attack - 30, attack + 30),
-                random.Next(defense - 30, defense + 30), random.Next(special_attack - 30, special_attack + 30),
-                random.Next(special_defense - 30, special_defense + 30), random.Next(speed - 30, speed + 30), name);
+            type_1 = random.Next(0, 16);
+            type_2 = random.Next(0, 16);
+            hp = random.Next(hp - 15, hp + 15);
+            attack = random.Next(attack - 15, attack + 15);
+            defense = random.Next(defense - 15, defense + 15);
+            special_attack = random.Next(special_attack - 15, special_attack + 15);
+            special_defense = random.Next(special_defense - 15, special_defense + 15);
+            speed = random.Next(speed - 15, speed + 15);
         }
 
         private int StatModifier()
