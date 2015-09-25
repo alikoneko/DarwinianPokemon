@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DarwinianPokemon
 {
-    class Program
+    class NameGenerator
     {
-        static void Main(string[] args)
+        public static string Generate(string name1, string name2)
         {
-            
+            return name1.Substring(0, name1.Length / 2) + name2.Substring(name2.Length / 2);
         }
     }
 }

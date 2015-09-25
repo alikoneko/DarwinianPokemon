@@ -23,9 +23,9 @@ namespace DarwinianPokemon
         private int max_age;
         private Random random;
         private List<IAttack> attacks;
-        //private string name;
+        private string name;
 
-        public Pokemon(int type_1, int type_2, int hp, int attack, int defense, int special_attack, int special_defense, int speed)
+        public Pokemon(int type_1, int type_2, int hp, int attack, int defense, int special_attack, int special_defense, int speed, string name)
         {
             this.type_1 = type_1;
             this.type_2 = type_2;
@@ -35,16 +35,8 @@ namespace DarwinianPokemon
             this.special_attack = special_attack;
             this.special_defense = special_defense;
             this.speed = speed;
-            max_age = DetermineLifeSpan();
-            this.attacks = new List<IAttack> 
-            { 
-                new Surf(),
-                new HyperVoice(),
-                new Pound(),
-                new Gust()
-            };
-            random = ServiceRegistry.GetInstance().GetRandom();
-            //this.name = name;
+            Initialize();
+            this.name = name;
         }
 
         public Pokemon(Pokemon pokemon)
@@ -57,11 +49,22 @@ namespace DarwinianPokemon
             special_attack = pokemon.special_attack;
             special_defense = pokemon.special_defense;
             speed = pokemon.speed;
-            this.attacks = new List<IAttack> { new Surf() };
-            random = ServiceRegistry.GetInstance().GetRandom();
-            //this.name = pokemon.name;
+            Initialize();
+            this.name = pokemon.name;
         }
 
+        private void Initialize()
+        {
+            random = ServiceRegistry.GetInstance().GetRandom();
+            this.attacks = new List<IAttack> 
+            { 
+                new Surf(),
+                new HyperVoice(),
+                new Pound(),
+                new Gust()
+            };
+            max_age = (hp + attack + defense + special_attack + special_defense + speed) / 5;
+        }
         public void Damage(int damage)
         {
             this.damage += damage;
@@ -76,16 +79,16 @@ namespace DarwinianPokemon
             int average_spdef = (special_defense + father.GetSpecialDefense()) / 2;
             int average_spd = (speed + father.GetSpeed()) / 2;
 
-            return new Pokemon(type_1, father.GetType_2(), average_hp, average_atk, average_def, average_spa, average_spdef, average_spd);
+            return new Pokemon(type_1, father.GetType_2(), average_hp, average_atk, average_def, average_spa, average_spdef, average_spd, NameGenerator.Generate(name, father.name));
         }
 
         public Pokemon MutateType()
         {
             if (random.Next(0, 1) == 0)
             {
-                return new Pokemon(random.Next(0, 17), type_2, hp, attack, defense, special_attack, special_defense, speed);
+                return new Pokemon(random.Next(0, 17), type_2, hp, attack, defense, special_attack, special_defense, speed, name);
             }
-            return new Pokemon(type_1, random.Next(0, 17), hp, attack, defense, special_attack, special_defense, speed);
+            return new Pokemon(type_1, random.Next(0, 17), hp, attack, defense, special_attack, special_defense, speed, name);
         }
 
         public Pokemon MutateStat()
@@ -97,22 +100,22 @@ namespace DarwinianPokemon
             {
                 case 0:
                     int hp = this.hp + modifier;
-                    return new Pokemon(type_1, type_2, hp, this.attack, this.defense, this.special_attack, this.special_defense, this.speed);
+                    return new Pokemon(type_1, type_2, hp, this.attack, this.defense, this.special_attack, this.special_defense, this.speed, name);
                 case 1:
                     int attack = this.attack + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, attack, this.defense, this.special_attack, this.special_defense, this.speed);
+                    return new Pokemon(type_1, type_2, this.hp, attack, this.defense, this.special_attack, this.special_defense, this.speed, name);
                 case 2:
                     int defense = this.defense + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, this.attack, defense, this.special_attack, this.special_defense, this.speed);
+                    return new Pokemon(type_1, type_2, this.hp, this.attack, defense, this.special_attack, this.special_defense, this.speed, name);
                 case 3:
                     int special_attack = this.special_defense + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, special_attack, this.special_defense, this.speed);
+                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, special_attack, this.special_defense, this.speed, name);
                 case 4:
                     int special_defense = this.special_defense + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, this.special_attack, special_defense, this.speed);
+                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, this.special_attack, special_defense, this.speed, name);
                 case 5:
                     int speed = this.speed + modifier;
-                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, this.special_attack, this.special_defense, speed);
+                    return new Pokemon(type_1, type_2, this.hp, this.attack, this.defense, this.special_attack, this.special_defense, speed, name);
                 default:
                     return new Pokemon(this);
             }
@@ -122,7 +125,7 @@ namespace DarwinianPokemon
         {
             return new Pokemon(random.Next(0, 17), random.Next(0, 17), random.Next(hp - 30, hp + 30), random.Next(attack - 30, attack + 30),
                 random.Next(defense - 30, defense + 30), random.Next(special_attack - 30, special_attack + 30),
-                random.Next(special_defense - 30, special_defense + 30), random.Next(speed - 30, speed + 30));
+                random.Next(special_defense - 30, special_defense + 30), random.Next(speed - 30, speed + 30), name);
         }
 
         private int StatModifier()
@@ -136,11 +139,6 @@ namespace DarwinianPokemon
 
             return random.Next(0, 10) * modifier;
 
-        }
-
-        private int DetermineLifeSpan()
-        {
-            return (hp + attack + defense + special_attack + special_defense + speed) / 5;
         }
 
         public override string ToString()

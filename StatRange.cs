@@ -10,10 +10,11 @@ namespace DarwinianPokemon
     {
         int min;
         int max;
-        Random r = new Random();
+        Random r;
 
         public StatRange(int min, int max)
         {
+            r = ServiceRegistry.GetInstance().GetRandom();
             this.min = min;
             this.max = max;
         }
