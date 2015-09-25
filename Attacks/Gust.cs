@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DarwinianPokemon.Attacks
 {
-    class Gust : Attack
+    class Gust : IAttack
     {
         Random random = new Random();
         public Gust()

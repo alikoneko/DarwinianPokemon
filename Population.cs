@@ -14,29 +14,30 @@ namespace DarwinianPokemon
         /*
          * This generates an initial population.  
          */
-        public Population(int type_1, int type_2, int hp_min, int hp_max, 
-            int attack_min, int attack_max, int defense_min, int defense_max, 
-            int special_attack_min, int special_attack_max, int special_defense_min, int special_defense_max, 
-            int speed_min, int speed_max, int initial_population)
+        public Population(PokemonFactory pokemon_factory, int initial_population)
         {
-            Random random = new Random(); //praise be to RNGesus, Random is random enough for this. A mersenne twister is just fine. seed later?
-            population = new List<Pokemon>();
+            Initialize();
+
             for (int index = 0; index < initial_population; index++)
             {
-                population.Add(new Pokemon(type_1, type_2, random.Next(hp_min, hp_max), random.Next(attack_min, attack_max), random.Next(defense_min, defense_max), 
-                    random.Next(special_attack_min, special_attack_max), random.Next(special_defense_min, special_defense_max), random.Next(speed_min, speed_max)));
+                population.Add(pokemon_factory.Generate());
             }
         }
 
-        public Population(List<Pokemon> population)
+        public Population(List<PokemonFactory> factories, int initial_population)
         {
-            this.population = new List<Pokemon>();
-            foreach (Pokemon pokemon in population)
+            Initialize();
+            for (int index = 0; index < initial_population; index++)
             {
-                this.population.Add(pokemon);
+                population.Add(factories[random.Next(0, factories.Count)].Generate());
             }
         }
 
+        private void Initialize()
+        {
+            random = ServiceRegistry.GetInstance().GetRandom();
+            population = new List<Pokemon>();
+        }
         public void Turn()
         {
             foreach (Pokemon pokemon in population)

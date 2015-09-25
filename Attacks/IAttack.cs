@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DarwinianPokemon.Attacks
 {
-    interface Attack
+    interface IAttack
     {
         int GetDamage(Pokemon attacker, Pokemon defender);
     }

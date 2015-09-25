@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DarwinianPokemon.Attacks
 {
-    class Surf : Attack
+    class Surf : IAttack
     {
         private Random random;
         public Surf()

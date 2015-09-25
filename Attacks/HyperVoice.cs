@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DarwinianPokemon.Attacks
 {
-    class HyperVoice : Attack
+    class HyperVoice : IAttack
     {
         Random random = new Random();
 
