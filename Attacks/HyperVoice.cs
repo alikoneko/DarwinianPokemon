@@ -8,9 +8,9 @@ namespace DarwinianPokemon.Attacks
 {
     class HyperVoice : IAttack
     {
-        Random random = new Random();
+        Random random ;
 
-         public HyperVoice()
+        public HyperVoice()
         {
             random = ServiceRegistry.GetInstance().GetRandom();
         }

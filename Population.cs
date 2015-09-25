@@ -42,22 +42,62 @@ namespace DarwinianPokemon
         {
             foreach (Pokemon pokemon in population)
             {
-                pokemon.max_heal();
+                pokemon.Heal();
             }
             
-            int fights = (population.Count - max_population) + (int)(population.Count * 0.30); //culls to max + percent.
-            int breed = (int)(population.Count * 0.50); //introduces new pokemon to the population.
+            int fights_remaining = (population.Count - max_population) + (int)(population.Count * 0.10); //culls to max + percent.
+            int breeds_remaining = (int)(population.Count * 0.15); //introduces new pokemon to the population.
 
-            while (fights > 0 && breed > 0)
+            while (fights_remaining > 0 && breeds_remaining > 0)
             {
-                Fight fight = new Fight(population[random.Next(0, population.Count)], population[random.Next(0, population.Count)]);
-                population.Remove(fight.Loser());
-                int mutation = random.Next(0, 3);
-                Pokemon baby = population[random.Next(0, population.Count)].Breed(population[random.Next(0, population.Count)]);
-                population.Add(baby);
-                fights++;
-                breed++;
+                if (breeds_remaining == 0)
+                {
+                    RandomFight();
+                    fights_remaining--;
+                }
+                else if (fights_remaining == 0)
+                {
+                    RandomBreed();
+                    breeds_remaining--;
+                }
+                else if(random.Next(0,1) == 0)
+                {
+                    RandomFight();
+                    fights_remaining--;
+                }
+                else
+                {
+                    RandomBreed();
+                    breeds_remaining--;
+                }
             }
+        }
+
+        private void RandomBreed()
+        {
+            Pokemon father = RandomPokemon();
+            Pokemon mother = FindMatch(father);
+            Pokemon baby = mother.Breed(father);
+            population.Add(baby);
+        }
+
+        private Pokemon RandomPokemon()
+        {
+            return population[random.Next(0, population.Count)];
+        }
+
+        private Pokemon FindMatch(Pokemon source)
+        {
+            List<Pokemon> candidates = (List<Pokemon>)(population.Where(candidate => candidate != source));
+            return candidates[random.Next(candidates.Count)];
+        }
+
+        private void RandomFight()
+        {
+            Pokemon attacker = RandomPokemon();
+            Pokemon defender = FindMatch(attacker);
+            Fight fight = new Fight(attacker, defender);
+            population.Remove(fight.Loser());
         }
 
         public List<Pokemon> GetPopulation()

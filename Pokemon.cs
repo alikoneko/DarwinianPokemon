@@ -205,7 +205,11 @@ namespace DarwinianPokemon
 
         public void Heal()
         {
-            damage -= (int)(damage * 0.20);
+            damage -= (int)(GetMaxHP() * 0.20);
+            if (damage < 0)
+            {
+                damage = 0;
+            }
         }
 
         public int GetHP()
