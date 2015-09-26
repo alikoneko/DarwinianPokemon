@@ -12,6 +12,7 @@ namespace DarwinianPokemon
         private static ServiceRegistry instance;
         private Random random;
         private SQLiteConnection connection;
+        private Logger log;
 
         public static ServiceRegistry GetInstance()
         {
@@ -28,6 +29,7 @@ namespace DarwinianPokemon
             random = new Random();
             connection = new SQLiteConnection("Data Source=Resources/pokemon.sqlite3;Version=3;");
             connection.Open();
+            log = new Logger();
         }
 
         public Random GetRandom()
@@ -38,6 +40,11 @@ namespace DarwinianPokemon
         public SQLiteConnection GetDBConnection()
         {
             return connection;
+        }
+
+        public Logger GetLog()
+        {
+            return log;
         }
     }
 }

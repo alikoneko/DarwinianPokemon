@@ -156,15 +156,7 @@ namespace DarwinianPokemon
 
         private int StatModifier()
         {
-            int modifier = random.Next(0, 1);
-
-            if (modifier == 0)
-            {
-                modifier = -1;
-            }
-
-            return random.Next(0, 10) * modifier;
-
+            return random.Next(-10, 10);
         }
 
         public override string ToString()
@@ -265,6 +257,11 @@ namespace DarwinianPokemon
         public void max_heal()
         {
             damage = 0;
+        }
+
+        public string GetName()
+        {
+            return name;
         }
     }
 }

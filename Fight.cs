@@ -10,12 +10,15 @@ namespace DarwinianPokemon
     {
         private Pokemon opponent_a, opponent_b;
         private Pokemon winner, loser;
+        Logger log;
 
         private Random random;
 
         public Fight(Pokemon opponent_a, Pokemon opponent_b)
         {
             random = ServiceRegistry.GetInstance().GetRandom();
+            log = ServiceRegistry.GetInstance().GetLog();
+
             this.opponent_a = opponent_a;
             this.opponent_b = opponent_b;
         }
@@ -35,6 +38,7 @@ namespace DarwinianPokemon
             {
                 RunFight();
             }
+            log.Log(loser.GetName() + "lost\n");
             return loser;
         }
         private void RunFight()

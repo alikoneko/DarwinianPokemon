@@ -10,45 +10,48 @@ namespace DarwinianPokemon
     {
         private List<Pokemon> population;
         private int max_population;
-        Random random = new Random();
+        private Random random = new Random();
+        private Logger log;
+        private int turn_count = 0;
         /*
          * This generates an initial population.  
          */
-        public Population(PokemonFactory pokemon_factory, int initial_population)
+        
+        public Population(List<PokemonFactory> factories, int initial_population, int max_population)
         {
-            Initialize();
+            this.max_population = max_population;
 
-            for (int index = 0; index < initial_population; index++)
-            {
-                population.Add(pokemon_factory.Generate());
-            }
-        }
+            random = ServiceRegistry.GetInstance().GetRandom();
+            log = ServiceRegistry.GetInstance().GetLog();
+            population = new List<Pokemon>();
 
-        public Population(List<PokemonFactory> factories, int initial_population)
-        {
-            Initialize();
             for (int index = 0; index < initial_population; index++)
             {
                 population.Add(factories[random.Next(0, factories.Count)].Generate());
             }
         }
 
-        private void Initialize()
-        {
-            random = ServiceRegistry.GetInstance().GetRandom();
-            population = new List<Pokemon>();
-        }
         public void Turn()
         {
+            log.Log("Turn: " + turn_count);
             foreach (Pokemon pokemon in population)
             {
                 pokemon.Heal();
             }
-            
-            int fights_remaining = (population.Count - max_population) + (int)(population.Count * 0.10); //culls to max + percent.
-            int breeds_remaining = (int)(population.Count * 0.15); //introduces new pokemon to the population.
 
-            while (fights_remaining > 0 && breeds_remaining > 0)
+            int fights_remaining = 0;
+
+            if (population.Count > max_population)
+            {
+                fights_remaining = (population.Count - max_population) + (int)(population.Count * 0.10);
+            }//culls to max + percent.
+            else
+            {
+                fights_remaining = (int)(population.Count * 0.10);
+            }
+
+            int breeds_remaining = (int)(population.Count * 0.10); //introduces new pokemon to the population.
+            while (fights_remaining > 0 || breeds_remaining > 0)
             {
                 if (breeds_remaining == 0)
                 {
@@ -71,6 +74,8 @@ namespace DarwinianPokemon
                     breeds_remaining--;
                 }
             }
+
+            turn_count++;
         }
 
         private void RandomBreed()
@@ -78,6 +83,7 @@ namespace DarwinianPokemon
             Pokemon father = RandomPokemon();
             Pokemon mother = FindMatch(father);
             Pokemon baby = mother.Breed(father);
+            log.Log("father: " + father.GetName() + "/n" + "mother: " + mother.GetName() + "/n" + "child: " + baby.GetName() + "/n");
             population.Add(baby);
         }
 
@@ -88,7 +94,7 @@ namespace DarwinianPokemon
 
         private Pokemon FindMatch(Pokemon source)
         {
-            List<Pokemon> candidates = (List<Pokemon>)(population.Where(candidate => candidate != source));
+            List<Pokemon> candidates = population.Where(candidate => candidate != source).ToList<Pokemon>();
             return candidates[random.Next(candidates.Count)];
         }
 
@@ -96,6 +102,7 @@ namespace DarwinianPokemon
         {
             Pokemon attacker = RandomPokemon();
             Pokemon defender = FindMatch(attacker);
+            log.Log(attacker.GetName() + " faught " + defender.GetName());
             Fight fight = new Fight(attacker, defender);
             population.Remove(fight.Loser());
         }
@@ -103,6 +110,11 @@ namespace DarwinianPokemon
         public List<Pokemon> GetPopulation()
         {
             return this.population;
+        }
+
+        public int GetTurnCount()
+        {
+            return turn_count;
         }
 
     }
