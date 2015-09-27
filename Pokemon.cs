@@ -10,6 +10,15 @@ namespace DarwinianPokemon
     //enum Types { Normal, Fire, Fighting, Water, Grass, }
     class Pokemon
     {
+        private static StatRange HP_RANGE = new StatRange(50, 250);
+        private static StatRange ATTACK_RANGE = new StatRange(25, 150);
+        private static StatRange DEFENSE_RANGE = new StatRange(50, 200);
+        private static StatRange SPECIAL_ATTACK_RANGE = new StatRange(25, 150);
+        private static StatRange SPECIAL_DEFENSE_RANGE = new StatRange(50, 200);
+        private static StatRange SPEED_RANGE = new StatRange(50, 100);
+
+        const int MUTATE_STAT_AMOUNT = 10;
+
         private int type_1;
         private int type_2;
         private int hp;
@@ -102,40 +111,45 @@ namespace DarwinianPokemon
 
         private void MutateType()
         {
-            if (random.Next(0, 1) == 0)
+            if (random.FlipCoin())
             {
-                type_1 = random.Next(0, 16);
+                type_1 = RandomType();
             }
             else
             {
-                type_2 = random.Next(0, 16);
+                type_2 = RandomType();
             }
+        }
+
+        private int RandomType()
+        {
+            return random.Next(0, 19);
         }
 
         private void MutateStat()
         {
-            int switch_stat = random.Next(0, 5);
-            int modifier = StatModifier();
+            int switch_stat = random.Next(0, 6);
+            int modifier = random.Next(-MUTATE_STAT_AMOUNT, MUTATE_STAT_AMOUNT+1);
 
             switch (switch_stat)
             {
                 case 0:
-                    hp =+ modifier;
+                    hp = HP_RANGE.Clamp(hp + modifier);
                     break;
                 case 1:
-                    attack =+ modifier;
+                    attack = ATTACK_RANGE.Clamp(attack + modifier);
                     break;
                 case 2:
-                    defense =+ modifier;
+                    defense = DEFENSE_RANGE.Clamp(defense + modifier);
                     break;
                 case 3:
-                    special_attack =+ modifier;
+                    special_attack = SPECIAL_ATTACK_RANGE.Clamp(special_attack + modifier);
                     break;
                 case 4:
-                    special_defense =+ modifier;
+                    special_defense = SPECIAL_DEFENSE_RANGE.Clamp(special_defense + modifier);
                     break;
                 case 5:
-                    speed =+ modifier;
+                    speed =SPEED_RANGE.Clamp(speed + modifier);
                     break;
                 default:
                     break;
@@ -144,26 +158,22 @@ namespace DarwinianPokemon
 
         private void Reroll()
         {
-            type_1 = random.Next(0, 16);
-            type_2 = random.Next(0, 16);
-            hp = random.Next(hp - 15, hp + 15);
-            attack = random.Next(attack - 15, attack + 15);
-            defense = random.Next(defense - 15, defense + 15);
-            special_attack = random.Next(special_attack - 15, special_attack + 15);
-            special_defense = random.Next(special_defense - 15, special_defense + 15);
-            speed = random.Next(speed - 15, speed + 15);
-        }
-
-        private int StatModifier()
-        {
-            return random.Next(-10, 10);
+            type_1 = RandomType();
+            type_2 = RandomType();
+            hp = random.Next(20, hp + 15);
+            attack = random.Next(20, attack + 15);
+            defense = random.Next(20, defense + 15);
+            special_attack = random.Next(20, special_attack + 15);
+            special_defense = random.Next(20, special_defense + 15);
+            speed = random.Next(20, speed + 15);
         }
 
         public override string ToString()
         {
             string pokemon = "";
-            //pokemon += name + "\n";
+            pokemon += name + "\n";
             pokemon += type_1 + " " + type_2 + "\n"
+                + "Age: " + age + "\n"
                 + "Stats:\n"
                 + "max hp: " + hp + "\n"
                 + "hp: " + GetHP() + "\n"
@@ -182,12 +192,7 @@ namespace DarwinianPokemon
 
         public bool Dead()
         {
-            if (age >= max_age)
-            {
-                return age >= max_age; 
-            }
-
-            return GetHP() < 0;
+            return GetHP() <= 0 || age >= max_age;
         }
 
         public int Level()

@@ -33,9 +33,11 @@ namespace DarwinianPokemon
 
         public void Turn()
         {
-            log.Log("Turn: " + turn_count);
+            log.Log("Turn: " + turn_count + "\n");
+            log.Log("Population: " + population.Count + "\n");
             foreach (Pokemon pokemon in population)
             {
+                log.Log(pokemon + "\n");
                 pokemon.Heal();
             }
 
@@ -47,10 +49,10 @@ namespace DarwinianPokemon
             }//culls to max + percent.
             else
             {
-                fights_remaining = (int)(population.Count * 0.10);
+                fights_remaining = (int)(population.Count * 0.15);
             }
 
-            int breeds_remaining = (int)(population.Count * 0.10); //introduces new pokemon to the population.
+            int breeds_remaining = (int)(population.Count * 0.20); //introduces new pokemon to the population.
             while (fights_remaining > 0 || breeds_remaining > 0)
             {
                 if (breeds_remaining == 0)
@@ -63,7 +65,7 @@ namespace DarwinianPokemon
                     RandomBreed();
                     breeds_remaining--;
                 }
-                else if(random.Next(0,1) == 0)
+                else if(random.Next(0,2) == 0)
                 {
                     RandomFight();
                     fights_remaining--;
@@ -75,6 +77,18 @@ namespace DarwinianPokemon
                 }
             }
 
+            foreach (Pokemon pokemon in population)
+            {
+                pokemon.IncreaseAge();
+            }
+
+            foreach (Pokemon pokemon in population.Where(p => p.Dead()).ToList<Pokemon>())
+            {
+                log.Log(pokemon.ToString() + " has died of old age");
+                population.Remove(pokemon);
+            }
+
+
             turn_count++;
         }
 
@@ -83,7 +97,9 @@ namespace DarwinianPokemon
             Pokemon father = RandomPokemon();
             Pokemon mother = FindMatch(father);
             Pokemon baby = mother.Breed(father);
-            log.Log("father: " + father.GetName() + "/n" + "mother: " + mother.GetName() + "/n" + "child: " + baby.GetName() + "/n");
+            log.Log("father: " + father.GetName());
+            log.Log("mother: " + mother.GetName());
+            log.Log("child: " + baby.GetName());
             population.Add(baby);
         }
 
@@ -102,7 +118,7 @@ namespace DarwinianPokemon
         {
             Pokemon attacker = RandomPokemon();
             Pokemon defender = FindMatch(attacker);
-            log.Log(attacker.GetName() + " faught " + defender.GetName());
+            log.Log(attacker.GetName() + " faught " + defender.GetName() + "\n");
             Fight fight = new Fight(attacker, defender);
             population.Remove(fight.Loser());
         }

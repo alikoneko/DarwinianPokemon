@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace DarwinianPokemon
 {
-    class Logger
+    class Random : System.Random
     {
-        public void Log(string message)
+        public bool FlipCoin()
         {
-            Console.WriteLine(message + "\n");
-            System.IO.File.AppendAllText(@"Pokemon.txt", message + "\n");
+            return Next(0, 2) == 0;
         }
     }
 }

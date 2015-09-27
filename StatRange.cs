@@ -21,7 +21,23 @@ namespace DarwinianPokemon
 
         public int Random()
         {
-            return r.Next(min, max);
+            return r.Next(min, max + 1);
+        }
+
+        public int Clamp(int value)
+        {
+            if (value < min)
+            {
+                return min;
+            }
+            else if (value > max)
+            {
+                return max;
+            }
+            else
+            {
+                return value;
+            }
         }
     }
 }
