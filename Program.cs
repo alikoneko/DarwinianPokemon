@@ -19,11 +19,11 @@ namespace DarwinianPokemon
             //{
             //    Console.WriteLine(pokemon);
             //}
-            for (int turn = 0; turn < 20000; turn++)
+            for (int turn = 0; turn < 100; turn++)
             {
                 population.Turn();
-                //System.Threading.Thread.Sleep(1000);
             }
+            Console.WriteLine("Done!");
             Console.ReadKey();
         }
     }

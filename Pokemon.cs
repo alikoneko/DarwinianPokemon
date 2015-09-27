@@ -48,20 +48,6 @@ namespace DarwinianPokemon
             this.name = name;
         }
 
-        public Pokemon(Pokemon pokemon)
-        {
-            type_1 = pokemon.type_1;
-            type_2 = pokemon.type_2;
-            hp = pokemon.hp;
-            attack = pokemon.attack;
-            defense = pokemon.defense;
-            special_attack = pokemon.special_attack;
-            special_defense = pokemon.special_defense;
-            speed = pokemon.speed;
-            Initialize();
-            this.name = pokemon.name;
-        }
-
         private void Initialize()
         {
             random = ServiceRegistry.GetInstance().GetRandom();
@@ -149,7 +135,7 @@ namespace DarwinianPokemon
                     special_defense = SPECIAL_DEFENSE_RANGE.Clamp(special_defense + modifier);
                     break;
                 case 5:
-                    speed =SPEED_RANGE.Clamp(speed + modifier);
+                    speed = SPEED_RANGE.Clamp(speed + modifier);
                     break;
                 default:
                     break;
@@ -185,14 +171,36 @@ namespace DarwinianPokemon
             return pokemon;
         }
 
+        public bool Breedable
+        {
+            get
+            {
+                return age >= max_age * 0.2;
+            }
+        }
+        public int Age
+        {
+            get
+            {
+                return age;
+            }
+        }
+        public bool Dead
+        {
+            get
+            {
+                return GetHP() <= 0 || age >= max_age;
+            }
+        }
+
+        public void SetInitialAge()
+        {
+            age = (int)(max_age * 0.2);
+        }
+
         public void Attack(Pokemon target)
         {
             target.Damage(attacks[random.Next(attacks.Count)].GetDamage(this, target));
-        }
-
-        public bool Dead()
-        {
-            return GetHP() <= 0 || age >= max_age;
         }
 
         public int Level()

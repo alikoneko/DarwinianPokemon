@@ -10,7 +10,7 @@ namespace DarwinianPokemon
     {
         public void Log(string message)
         {
-            Console.WriteLine(message + "\n");
+            //Console.WriteLine(message + "\n");
             System.IO.File.AppendAllText(@"Pokemon.txt", message + "\n");
         }
     }

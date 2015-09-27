@@ -38,7 +38,7 @@ namespace DarwinianPokemon
             {
                 RunFight();
             }
-            log.Log(loser.GetName() + "lost\n");
+            log.Log(loser.GetName() + " lost");
             return loser;
         }
         private void RunFight()
@@ -75,7 +75,7 @@ namespace DarwinianPokemon
             {
                 attacker.Attack(defender);
 
-                if(defender.Dead())
+                if(defender.Dead)
                 {
                     winner = attacker;
                     loser = defender;

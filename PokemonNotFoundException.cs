@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DarwinianPokemon
 {
-    class OpponentNotFoundException : Exception
+    class PokemonNotFoundException : Exception
     {
     }
 }

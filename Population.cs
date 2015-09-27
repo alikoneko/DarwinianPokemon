@@ -27,7 +27,9 @@ namespace DarwinianPokemon
 
             for (int index = 0; index < initial_population; index++)
             {
-                population.Add(factories[random.Next(0, factories.Count)].Generate());
+                Pokemon pokemon = factories[random.Next(0, factories.Count)].Generate();
+                pokemon.SetInitialAge();
+                population.Add(pokemon);
             }
         }
 
@@ -52,27 +54,55 @@ namespace DarwinianPokemon
                 fights_remaining = (int)(population.Count * 0.15);
             }
 
-            int breeds_remaining = (int)(population.Count * 0.20); //introduces new pokemon to the population.
+            int breeds_remaining = (int)(population.Where(p => p.Breedable).ToList<Pokemon>().Count * 0.20); //introduces new pokemon to the population.
             while (fights_remaining > 0 || breeds_remaining > 0)
             {
                 if (breeds_remaining == 0)
                 {
-                    RandomFight();
+                    try
+                    {
+                        RandomFight();
+                    }
+                    catch (PokemonNotFoundException e)
+                    {
+                       
+                    }
                     fights_remaining--;
                 }
                 else if (fights_remaining == 0)
                 {
-                    RandomBreed();
+                    try
+                    {
+                        RandomBreed();
+                    }
+                    catch (PokemonNotFoundException e)
+                    {
+
+                    }
                     breeds_remaining--;
                 }
                 else if(random.Next(0,2) == 0)
                 {
-                    RandomFight();
+                    try
+                    {
+                        RandomFight();
+                    }
+                    catch (PokemonNotFoundException e) 
+                    { 
+                    
+                    }
                     fights_remaining--;
                 }
                 else
                 {
-                    RandomBreed();
+                    try
+                    {
+                        RandomBreed();
+                    }
+                    catch (PokemonNotFoundException e)
+                    {
+
+                    }
                     breeds_remaining--;
                 }
             }
@@ -82,7 +112,7 @@ namespace DarwinianPokemon
                 pokemon.IncreaseAge();
             }
 
-            foreach (Pokemon pokemon in population.Where(p => p.Dead()).ToList<Pokemon>())
+            foreach (Pokemon pokemon in population.Where(p => p.Dead).ToList<Pokemon>())
             {
                 log.Log(pokemon.ToString() + " has died of old age");
                 population.Remove(pokemon);
@@ -94,8 +124,8 @@ namespace DarwinianPokemon
 
         private void RandomBreed()
         {
-            Pokemon father = RandomPokemon();
-            Pokemon mother = FindMatch(father);
+            Pokemon father = RandomBreedablePokemon();
+            Pokemon mother = FindBreedingMatch(father);
             Pokemon baby = mother.Breed(father);
             log.Log("father: " + father.GetName());
             log.Log("mother: " + mother.GetName());
@@ -103,15 +133,34 @@ namespace DarwinianPokemon
             population.Add(baby);
         }
 
+        private Pokemon RandomPokemon(List<Pokemon> pokemon)
+        {
+            if (pokemon.Count > 0)
+            {
+                return pokemon[random.Next(0, pokemon.Count)];
+            }
+            else
+            {
+                throw new PokemonNotFoundException();
+            }
+        }
         private Pokemon RandomPokemon()
         {
-            return population[random.Next(0, population.Count)];
+            return RandomPokemon(population);
+        }
+
+        private Pokemon RandomBreedablePokemon()
+        {
+            return RandomPokemon(population.Where(candidate => candidate.Breedable == true).ToList<Pokemon>());
         }
 
         private Pokemon FindMatch(Pokemon source)
         {
-            List<Pokemon> candidates = population.Where(candidate => candidate != source).ToList<Pokemon>();
-            return candidates[random.Next(candidates.Count)];
+            return RandomPokemon(population.Where(candidate => candidate != source).ToList<Pokemon>());
+        }
+        private Pokemon FindBreedingMatch(Pokemon source)
+        {
+            return RandomPokemon(population.Where(candidate => candidate != source && candidate.Breedable).ToList<Pokemon>());
         }
 
         private void RandomFight()
