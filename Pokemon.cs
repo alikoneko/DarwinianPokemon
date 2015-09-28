@@ -67,14 +67,14 @@ namespace DarwinianPokemon
 
         public Pokemon Breed(Pokemon father)
         {
-            int average_hp = (GetMaxHP() + father.GetHP()) / 2;
-            int average_atk = (attack + father.GetAttack()) / 2;
-            int average_def = (defense + father.GetDefense()) / 2;
-            int average_spa = (special_attack + father.GetSpecialAttack()) / 2;
-            int average_spdef = (special_defense + father.GetSpecialDefense()) / 2;
-            int average_spd = (speed + father.GetSpeed()) / 2;
+            int average_hp = (MaxHP + father.HP) / 2;
+            int average_atk = (attack + father.AttackPower) / 2;
+            int average_def = (defense + father.Defense) / 2;
+            int average_spa = (special_attack + father.SpecialAttack) / 2;
+            int average_spdef = (special_defense + father.SpecialDefense) / 2;
+            int average_spd = (speed + father.Speed) / 2;
 
-            Pokemon baby = new Pokemon(type_1, father.GetType_2(), average_hp, average_atk, average_def, average_spa, average_spdef, average_spd, NameGenerator.Generate(name, father.name));
+            Pokemon baby = new Pokemon(type_1, father.Type_2, average_hp, average_atk, average_def, average_spa, average_spdef, average_spd, NameGenerator.Generate(name, father.name));
             int mutate = random.Next(0, 7);
             switch (mutate)
             {
@@ -161,36 +161,14 @@ namespace DarwinianPokemon
             pokemon += type_1 + " " + type_2 + "\n"
                 + "Age: " + age + "\n"
                 + "Stats:\n"
-                + "max hp: " + hp + "\n"
-                + "hp: " + GetHP() + "\n"
+                + "max hp: " + MaxHP + "\n"
+                + "hp: " + HP + "\n"
                 + "atk: " + attack + "\n"
                 + "defense: " + defense + "\n"
                 + "special attack: " + special_attack + "\n"
                 + "special defense: " + special_defense + "\n"
                 + "speed: " + speed + "\n";
             return pokemon;
-        }
-
-        public bool Breedable
-        {
-            get
-            {
-                return age >= (int)(max_age * 0.20);
-            }
-        }
-        public int Age
-        {
-            get
-            {
-                return age;
-            }
-        }
-        public bool Dead
-        {
-            get
-            {
-                return GetHP() <= 0 || age >= max_age;
-            }
         }
 
         public void SetInitialAge()
@@ -203,63 +181,13 @@ namespace DarwinianPokemon
             target.Damage(attacks[random.Next(attacks.Count)].GetDamage(this, target));
         }
 
-        public int Level()
-        {
-            return 50;
-        }
-
         public void Heal()
         {
-            damage -= (int)(GetMaxHP() * 0.20);
+            damage -= (int)(MaxHP * 0.20);
             if (damage < 0)
             {
                 damage = 0;
             }
-        }
-
-        public int GetHP()
-        {
-            return hp - damage;
-        }
-
-        public int GetMaxHP()
-        {
-            return hp;
-        }
-
-        public int GetAttack()
-        {
-            return attack;
-        }
-
-        public int GetDefense() 
-        {
-            return this.defense;
-        }
-
-        public int GetSpecialAttack()
-        {
-            return this.special_attack;
-        }
-
-        public int GetSpecialDefense()
-        {
-            return this.special_defense;
-        }
-
-        public int GetSpeed()
-        {
-            return this.speed;
-        }
-
-        public int GetType_1()
-        {
-            return this.type_1;
-        }
-
-        public int GetType_2()
-        {
-            return this.type_2;
         }
 
         public void IncreaseAge()
@@ -267,14 +195,108 @@ namespace DarwinianPokemon
             age++;
         }
 
-        public void Max_Heal()
+        public bool Breedable
         {
-            damage = 0;
+            get
+            {
+                return age >= (int)(max_age * 0.20);
+            }
         }
 
-        public string GetName()
+        public bool Dead
         {
-            return name;
+            get
+            {
+                return HP <= 0 || age >= max_age;
+            }
+        }
+
+        public int Level
+        {
+            get
+            {
+                return 50;
+            }
+        }
+
+        public int HP
+        {
+            get
+            {
+                return hp - damage;
+            }
+        }
+
+        public int MaxHP
+        {
+            get
+            {
+                return hp;
+            }
+        }
+
+        public int AttackPower
+        {
+            get
+            {
+                return attack;
+            }
+        }
+
+        public int Defense 
+        {
+            get
+            {
+                return this.defense;
+            }
+        }
+
+        public int SpecialAttack
+        {
+            get
+            {
+                return this.special_attack;
+            }
+        }
+
+        public int SpecialDefense
+        {
+            get
+            {
+                return this.special_defense;
+            }
+        }
+
+        public int Speed
+        {
+            get
+            {
+                return this.speed;
+            }
+        }
+
+        public int Type_1
+        {
+            get
+            {
+                return this.type_1;
+            }
+        }
+
+        public int Type_2
+        {
+            get
+            {
+                return this.type_2;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
         }
     }
 }

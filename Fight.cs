@@ -38,7 +38,7 @@ namespace DarwinianPokemon
             {
                 RunFight();
             }
-            log.Log(loser.GetName() + " lost");
+            log.Log(loser.Name + " lost");
             return loser;
         }
         private void RunFight()
@@ -47,12 +47,12 @@ namespace DarwinianPokemon
 
             Pokemon attacker, defender;
 
-            if (opponent_a.GetSpeed() > opponent_b.GetSpeed())
+            if (opponent_a.Speed > opponent_b.Speed)
             {
                 attacker = opponent_a;
                 defender = opponent_b;
             }
-            else if (opponent_b.GetSpeed() > opponent_a.GetSpeed())
+            else if (opponent_b.Speed > opponent_a.Speed)
             {
                 attacker = opponent_b;
                 defender = opponent_a;

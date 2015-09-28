@@ -17,14 +17,14 @@ namespace DarwinianPokemon.Attacks
 
         public int GetDamage(Pokemon attacker, Pokemon defender)
         {
-            double damage = (2 * attacker.Level() + 10) / 250;
+            double damage = (2 * attacker.Level + 10) / 250;
             double modifier = random.NextDouble() * (1.00f - 0.85) + 0.85;
             if (random.Next(0, 1) == 0) //determines critical hit!
             {
                 modifier *= 2;
             }
 
-            damage *= (attacker.GetAttack()) / (defender.GetDefense());
+            damage *= (attacker.AttackPower) / (defender.Defense);
             damage *= 90;
             damage += 2;
             damage *= modifier;

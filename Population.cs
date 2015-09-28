@@ -127,9 +127,9 @@ namespace DarwinianPokemon
             Pokemon father = RandomBreedablePokemon();
             Pokemon mother = FindBreedingMatch(father);
             Pokemon baby = mother.Breed(father);
-            log.Log("father: " + father.GetName());
-            log.Log("mother: " + mother.GetName());
-            log.Log("child: " + baby.GetName());
+            log.Log("father: " + father.Name);
+            log.Log("mother: " + mother.Name);
+            log.Log("child: " + baby.Name);
             population.Add(baby);
         }
 
@@ -167,7 +167,7 @@ namespace DarwinianPokemon
         {
             Pokemon attacker = RandomPokemon();
             Pokemon defender = FindMatch(attacker);
-            log.Log(attacker.GetName() + " faught " + defender.GetName() + "\n");
+            log.Log(attacker.Name + " faught " + defender.Name + "\n");
             Fight fight = new Fight(attacker, defender);
             population.Remove(fight.Loser());
         }
