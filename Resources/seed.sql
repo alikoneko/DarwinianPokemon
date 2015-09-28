@@ -32,6 +32,12 @@ INSERT INTO pokemon_factories VALUES(NULL, 'Yanma', 125, 172, 45, 106, 72, 139, 
 INSERT INTO pokemon_factories VALUES(NULL, 'Blissey', 315, 362, 13, 68, 13, 68, 72, 139, 126, 205, 54, 117, 0, 0);
 INSERT INTO pokemon_factories VALUES(NULL, 'Flareon', 125, 172, 121, 200, 58, 123, 90, 161, 103, 178, 63, 128,  1, 1);
 INSERT INTO pokemon_factories VALUES(NULL, 'Umbreon', 155, 202, 63, 128, 103, 178, 58, 123, 121, 200, 63, 128,  15, 15);
+INSERT INTO pokemon_factories VALUES(NULL, 'Omanyte', 95, 142, 40, 101, 94, 167, 85, 156, 54, 117, 36, 95,  10, 3);
+INSERT INTO pokemon_factories VALUES(NULL, 'Pidgeot', 143, 190, 76, 145, 72, 139, 67, 134, 67, 134, 95, 168, 0, 4);
+INSERT INTO pokemon_factories VALUES(NULL, 'Chestnaught', 148, 195, 100, 174, 114, 191, 71, 138, 72, 139, 62, 127, 5, 14);
+INSERT INTO pokemon_factories VALUES(NULL, 'Sylveon',  155, 202, 63, 128, 63, 128, 103, 178, 121, 200, 58, 123, 17, 17);
+INSERT INTO pokemon_factories VALUES(NULL, 'Umbreon', 155, 202, 63, 128, 103, 178, 58, 123, 121, 200, 63, 128,  15, 15);
+
 
 
 

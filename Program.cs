@@ -11,7 +11,7 @@ namespace DarwinianPokemon
     {
         static void Main(string[] args)
         {
-            int initial_population = 200;
+            int initial_population = 100;
             int max_population = 1000;
             PokemonFactoryRepository pokemon_factory_repository = new PokemonFactoryRepository();
             Population population = new Population(pokemon_factory_repository.All(), initial_population, max_population);
@@ -22,6 +22,7 @@ namespace DarwinianPokemon
             for (int turn = 0; turn < 200; turn++)
             {
                 population.Turn();
+                //System.Threading.Thread.Sleep(60000);
             }
             Console.WriteLine("Done!");
             Console.ReadKey();

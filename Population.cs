@@ -44,7 +44,7 @@ namespace DarwinianPokemon
             }
 
             int fights_remaining = 0;
-            int breeds_remaining = (int)(population.Where(p => p.Breedable).ToList<Pokemon>().Count * 0.50); //introduces new pokemon to the population.
+            int breeds_remaining = (int)(population.Where(p => p.Breedable).ToList<Pokemon>().Count * 0.75); //introduces new pokemon to the population.
 
             if (population.Count > max_population)
             {

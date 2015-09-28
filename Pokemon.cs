@@ -175,7 +175,7 @@ namespace DarwinianPokemon
         {
             get
             {
-                return age >= (int)(max_age * 0.15);
+                return age >= (int)(max_age * 0.20);
             }
         }
         public int Age
