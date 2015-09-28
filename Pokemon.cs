@@ -175,7 +175,7 @@ namespace DarwinianPokemon
         {
             get
             {
-                return age >= max_age * 0.2;
+                return age >= (int)(max_age * 0.15);
             }
         }
         public int Age
@@ -195,7 +195,7 @@ namespace DarwinianPokemon
 
         public void SetInitialAge()
         {
-            age = (int)(max_age * 0.2);
+            age = (int)(max_age * 0.20);
         }
 
         public void Attack(Pokemon target)
@@ -267,7 +267,7 @@ namespace DarwinianPokemon
             age++;
         }
 
-        public void max_heal()
+        public void Max_Heal()
         {
             damage = 0;
         }
