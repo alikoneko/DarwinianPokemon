@@ -11,21 +11,21 @@ namespace DarwinianPokemon
     {
         static void Main(string[] args)
         {
-            //int initial_population = 100;
-            //int max_population = 1000;
-            //PokemonFactoryRepository pokemon_factory_repository = new PokemonFactoryRepository();
-            //Population population = new Population(pokemon_factory_repository.All(), initial_population, max_population);
-            ////foreach(Pokemon pokemon in population.GetPopulation())
-            ////{
-            ////    Console.WriteLine(pokemon);
-            ////}
-            //for (int turn = 0; turn < 200; turn++)
-            //{
-            //    population.Turn();
-            //    //System.Threading.Thread.Sleep(60000);
-            //}
-            //Console.WriteLine("Done!");
-            //Console.ReadKey();
+            int initial_population = 100;
+            int max_population = 1000;
+            PokemonFactoryRepository pokemon_factory_repository = new PokemonFactoryRepository();
+            Population population = new Population(pokemon_factory_repository.All(), initial_population, max_population);
+            foreach (Pokemon pokemon in population.GetPopulation())
+            {
+                Console.WriteLine(pokemon);
+            }
+            for (int turn = 0; turn < 200; turn++)
+            {
+                population.Turn();
+                //System.Threading.Thread.Sleep();
+            }
+            Console.WriteLine("Done!");
+            Console.ReadKey();
         }
     }
 }
