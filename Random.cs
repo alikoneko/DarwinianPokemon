@@ -12,5 +12,10 @@ namespace DarwinianPokemon
         {
             return Next(0, 2) == 0;
         }
+
+        public bool Critical()
+        {
+            return (Next() % 20) == 0;
+        }
     }
 }
