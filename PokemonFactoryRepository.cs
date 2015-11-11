@@ -25,8 +25,8 @@ namespace DarwinianPokemon
 
             while (reader.Read())
             {
-                int type_1 = (int)(long)reader["type_1"];
-                int type_2 = (int)(long)reader["type_2"];
+                int type_1 = (int)(long)reader["type_1_id"];
+                int type_2 = (int)(long)reader["type_2_id"];
                 StatRange hp_range = new StatRange((int)(long)reader["hp_min"], (int)(long)reader["hp_max"]);
                 StatRange attack_range = new StatRange((int)(long)reader["attack_min"], (int)(long)reader["attack_max"]);
                 StatRange defense_range = new StatRange((int)(long)reader["defense_min"], (int)(long)reader["defense_max"]);

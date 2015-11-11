@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DarwinianPokemon
 {
-    class Population
+    class PokemonPopulation
     {
         private List<Pokemon> population;
         private int max_population;
@@ -17,7 +17,7 @@ namespace DarwinianPokemon
          * This generates an initial population.  
          */
         
-        public Population(List<PokemonFactory> factories, int initial_population, int max_population)
+        public PokemonPopulation(List<PokemonFactory> factories, int initial_population, int max_population)
         {
             this.max_population = max_population;
 
