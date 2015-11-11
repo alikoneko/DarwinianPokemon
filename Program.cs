@@ -11,7 +11,7 @@ namespace DarwinianPokemon
     {
         static void Main(string[] args)
         {
-            int initial_population = 100;
+            int initial_population = 10;
             int max_population = 100;
             PokemonFactoryRepository pokemon_factory_repository = new PokemonFactoryRepository();
             PokemonPopulation population = new PokemonPopulation(pokemon_factory_repository.All(), initial_population, max_population);

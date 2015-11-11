@@ -19,14 +19,22 @@ namespace DarwinianPokemon.Attacks
         public int GetDamage(Pokemon attacker, Pokemon defender)
         {
             log.Log(attacker.Name + " used Surf on " + defender.Name);
-            double damage = (2 * attacker.Level + 10) / 250;
-            double modifier = random.NextDouble() * (1.00f - 0.85) + 0.85;
+            double damage = (2 * attacker.Level + 10) / 250.0;
+            double modifier = random.NextDouble() * (1.0 - 0.85) + 0.85;
             if (random.Next(0, 1) == 0) //determines critical hit!
             {
                 log.Log("Critical Hit!");
                 modifier *= 2;
             }
-            damage *= (attacker.SpecialAttack) / (defender.SpecialDefense);
+            if (random.FlipCoin()) //determines which type is hit with.
+            {
+                modifier *= TypeEffectivenessModifier(attacker.Type_1, defender);
+            }
+            else
+            {
+                modifier *= TypeEffectivenessModifier(attacker.Type_2, defender);
+            }
+            damage *= ((attacker.SpecialAttack) / (defender.SpecialDefense));
             damage *= 90;
             damage += 2;
             damage *= modifier;
@@ -36,6 +44,19 @@ namespace DarwinianPokemon.Attacks
                 return 1;
             }
             return (int)(Math.Round(damage));
+        }
+        private double TypeEffectivenessModifier(int attacker_type, Pokemon defender)
+        {
+            double modifier = 1.0;
+            SpecialAttack special = new SpecialAttack();
+            modifier *= special.GetMultiplier(attacker_type, defender.Type_1);
+            if (defender.Type_1 == defender.Type_2)
+            {
+                return modifier;
+            }
+            modifier *= special.GetMultiplier(attacker_type, defender.Type_2);
+            log.Log("Type effectiveness modifier for " + attacker_type + ": " + modifier);
+            return modifier;
         }
     }
 }
