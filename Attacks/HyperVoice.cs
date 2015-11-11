@@ -26,7 +26,7 @@ namespace DarwinianPokemon.Attacks
                 log.Log("Critical Hit!");
                 modifier *= 2;
             }
-            if (random.FlipCoin()) //determines which type is hit with.
+            if (random.Critical()) //determines which type is hit with.
             {
                 modifier *= TypeEffectivenessModifier(attacker.Type_1, defender);
             }

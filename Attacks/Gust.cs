@@ -21,7 +21,7 @@ namespace DarwinianPokemon.Attacks
             log.Log(attacker.Name + " used Gust on " + defender.Name);
             double damage = (2 * attacker.Level + 10) / 250.0;
             double modifier = random.NextDouble() * (1.0 - 0.85) + 0.85;
-            if (random.FlipCoin()) //determines critical hit!
+            if (random.Critical()) //determines critical hit!
             {
                 log.Log("Critical Hit");
                 modifier *= 2;
