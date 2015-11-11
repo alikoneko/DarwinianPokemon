@@ -378,7 +378,41 @@ INSERT INTO pokemon_factories VALUES(NULL, 'Pidgeot', 143, 190, 76, 145, 72, 139
 INSERT INTO pokemon_factories VALUES(NULL, 'Chestnaught', 148, 195, 100, 174, 114, 191, 71, 138, 72, 139, 62, 127, 4, 17);
 INSERT INTO pokemon_factories VALUES(NULL, 'Sylveon',  155, 202, 63, 128, 63, 128, 103, 178, 121, 200, 58, 123, 16, 16);
 INSERT INTO pokemon_factories VALUES(NULL, 'Umbreon', 155, 202, 63, 128, 103, 178, 58, 123, 121, 200, 63, 128,  14, 14);
-
+insert into pokemon_factories values(NULL,'Flygon', 140, 187, 94, 167, 76, 145, 76, 145, 76, 145, 94, 167, 7, 12);
+insert into pokemon_factories values(NULL,'Togekiss', 145, 192, 49, 112, 90, 161, 112, 189, 108, 183, 76, 284, 16, 3);
+insert into pokemon_factories values(NULL, 'Wobbuffet', 250, 297, 33, 93, 56, 121, 34, 93, 56, 121, 34, 93, 8, 8);
+INSERT INTO pokemon_factories VALUES(NULL, 'Mismagius', 120, 167, 58, 123, 58, 123, 99, 172, 99, 172, 99, 172,  13, 13);
+INSERT INTO pokemon_factories VALUES(NULL, 'Gengar', 120, 167, 63, 128, 58, 123, 121, 200, 72, 139, 103, 178,  14, 5);
+INSERT INTO pokemon_factories VALUES(NULL, 'Sunflora', 136, 182, 72, 139, 54, 117, 99, 172, 81, 150, 31, 90, 4, 4);
+insert into pokemon_factories values(NULL,'Flygon', 140, 187, 94, 167, 76, 145, 76, 145, 76, 145, 94, 167, 7, 12);
+insert into pokemon_factories values(NULL,'Togekiss', 145, 192, 49, 112, 90, 161, 112, 189, 108, 183, 76, 284, 16, 3);
+insert into pokemon_factories values(NULL, 'Wobbuffet', 250, 297, 33, 93, 56, 121, 34, 93, 56, 121, 34, 93, 8, 8);
+INSERT INTO pokemon_factories VALUES(NULL, 'Mismagius', 120, 167, 58, 123, 58, 123, 99, 172, 99, 172, 99, 172,  13, 13);
+INSERT INTO pokemon_factories VALUES(NULL, 'Gengar', 120, 167, 63, 128, 58, 123, 121, 200, 72, 139, 103, 178,  14, 5);
+INSERT INTO pokemon_factories VALUES(NULL, 'Sunflora', 136, 182, 72, 139, 54, 117, 99, 172, 81, 150, 31, 90, 4, 4);
+INSERT INTO pokemon_factories VALUES(NULL, 'Sandslash', 135, 182, 94, 167, 103, 178, 45, 106, 54, 117, 63, 128,  7, 7);
+INSERT INTO pokemon_factories VALUES(NULL, 'Dugtrio', 95, 142, 76, 145, 49, 112, 49, 112, 67, 134, 112, 189,  7, 7);
+INSERT INTO pokemon_factories VALUES(NULL, 'Sandslash', 135, 182, 94, 167, 103, 178, 45, 106, 54, 117, 63, 128,  7, 7);
+INSERT INTO pokemon_factories VALUES(NULL, 'Lopunny', 125, 172, 72, 140, 80, 149, 53, 116, 90, 162, 99, 172,  0, 0);
+INSERT INTO pokemon_factories VALUES(NULL, 'Roserade', 120, 167, 67, 134, 54, 117, 117, 194, 99, 172, 85, 156,  4, 5);
+INSERT INTO pokemon_factories VALUES(NULL, 'Butterfree', 120, 167, 45, 106, 49, 112, 85, 156, 76, 145, 67, 134,  3, 11);
+INSERT INTO pokemon_factories VALUES(NULL, 'Aurorus', 183, 230, 73, 141, 69, 136, 93, 166, 87, 158, 56, 121, 9, 10);
+INSERT INTO pokemon_factories VALUES(NULL, 'Gardevoir', 128, 175, 63, 128, 63, 128, 117, 194, 108, 183, 76, 145, 8, 16);
+INSERT INTO pokemon_factories VALUES(NULL, 'Gallade', 128, 175, 117, 194, 63, 128, 63, 128, 108, 183, 76, 145,  8, 17);
+INSERT INTO pokemon_factories VALUES(NULL, 'Skarmory', 125, 172, 76, 145, 130, 211, 40, 101, 67, 134, 67, 134,  15, 3);
+INSERT INTO pokemon_factories VALUES(NULL, 'Luxray', 140, 187, 112, 189, 75, 144, 90, 161, 75, 144, 67, 134,  6, 6);
+INSERT INTO pokemon_factories VALUES(NULL, 'Greninja', 132, 179, 90, 161, 64, 130, 97, 170, 68, 135, 114, 191, 2, 14);
+INSERT INTO pokemon_factories VALUES(NULL, 'Zoroark', 120, 167, 99, 172, 58, 123, 112, 189, 58, 123, 99, 172, 14, 14);
+INSERT INTO pokemon_factories VALUES(NULL, 'Tyrantrum', 149, 189, 113, 190, 111, 188, 66, 133, 57, 122, 68, 135, 9, 12);
+INSERT INTO pokemon_factories VALUES(NULL, 'Miltank', 155, 202, 76, 145, 99, 172, 40, 101, 67, 134, 94, 167, 0, 0);
+INSERT INTO pokemon_factories VALUES(NULL, 'Electivire', 135, 182, 115, 192, 64, 130, 90, 161, 81, 150, 90, 161, 7, 7);
+INSERT INTO pokemon_factories VALUES(NULL, 'Ninetails', 133, 180, 72, 140, 72, 139, 72, 146, 94, 167, 94, 167, 1, 1);
+INSERT INTO pokemon_factories VALUES(NULL, 'Wigglytuff', 200, 247, 67, 134, 45, 106, 81, 150, 49, 112, 45, 106, 0, 16);
+INSERT INTO pokemon_factories VALUES(NULL, 'Aegislash', 120, 167, 139, 222, 49, 112, 139, 222, 49, 112, 58, 123, 15, 13);
+INSERT INTO pokemon_factories VALUES(NULL, 'Garchomp', 168, 215, 121, 200, 90, 161, 76, 145, 81, 150, 96, 169, 12, 7);
+INSERT INTO pokemon_factories VALUES(NULL, 'Tyrantrum', 149, 189, 113, 190, 111, 188, 66, 133, 57, 122, 68, 135, 9, 12);
+INSERT INTO pokemon_factories VALUES(NULL, 'Mienshao', 125, 172, 117, 194, 58, 123, 90, 161, 58, 123, 99, 172, 17, 17);
+INSERT INTO pokemon_factories VALUES(NULL, 'Sharpedo', 130, 177, 112, 189, 40, 101, 90, 161, 40, 101, 90, 161, 2, 14);
 
 
 
